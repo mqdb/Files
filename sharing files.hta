@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta http-equiv="x-ua-compatible" content="IE10">
@@ -26,13 +25,9 @@
 <style> 
 *{overflow:hidden;padding:22px;}
 body{z-index:23;}
-
-
-
 #me{text-align:left;height:70%;position:absolute;top:150px;left:28%;width:70%;vertical-align:top;}
 #appname{bottom:6%;left:5%;width:40%;text-align:left;color:red;position:absolute;}
 button{position:absolute;width:200px;background:black;color:red;}
-
 .mediacontrol{width:64px;height:64px;}
 .ll{align:center;height:128px;width:128px;padding:33px;}
 .pc{position:absolute;top:89%;left:0%;width:100%;text-align:center;display:none;}
@@ -63,20 +58,17 @@ h3{text-align:left;position:absolute;top:2px;left:0;width:100%;color:red;font-si
 
 </div>
 
-
-
 <script language=VBScript>
 set ws = createobject("wscript.shell") 
 set fs = createobject("scripting.filesystemobject") 
 set sa = createobject("shell.application") 
 Sub Document_OnKeyUp()
         intKeyCode = Window.Event.Keycode
-
         If intKeyCode =27 Then 
 		window.close
 		killvid
-		end if
-    End Sub
+	end if
+    	End Sub
 
 
 sub window_onload
