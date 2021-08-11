@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE10">
+<HTA:APPLICATION
+  APPLICATIONNAME="Mega Installation Disc"
+  ID="MegaDisc"
+  VERSION="6.9"
+  BORDER="none"
+  BORDERSTYLE=""
+  INNERBORDER="no"
+  CAPTION="no"
+  SYSMENU="no"
+  MAXIMIZEBUTTON="no"
+  MINIMIZEBUTTON="no"
+  ICON="1.ico"
+  SCROLL="no"
+  SCROLLFLAT="yes"
+  SINGLEINSTANCE="yes"
+  CONTEXTMENU="no"
+  NAVIGABLE="no"
+  SELECTION="no"/>
+
+<title>Mega Disc</title>
+<style> 
+*{overflow:hidden;padding:22px;}
+body{z-index:23;}
+
+
+
+#me{text-align:left;height:70%;position:absolute;top:150px;left:28%;width:70%;vertical-align:top;}
+#appname{bottom:6%;left:5%;width:40%;text-align:left;color:red;position:absolute;}
+button{position:absolute;width:200px;background:black;color:red;}
+
+.mediacontrol{width:64px;height:64px;}
+.ll{align:center;height:128px;width:128px;padding:33px;}
+.pc{position:absolute;top:89%;left:0%;width:100%;text-align:center;display:none;}
+input{width:420px;background:black;color:red;}
+h3{text-align:left;position:absolute;top:2px;left:0;width:100%;color:red;font-size:98px;font-family: Script,Impact,Charcoal,sans-serif;}
+</style>
+</head>
+
+
+<body style='text-align:center;background:black'  >
+<h3>Mega Installation Disc</h3>
+
+<div style="position:absolute;top:160px;left:2px;text-align:left;">
+
+<input class="ll" type="image" src="7zip.png" id="7z.msi" value="7-Zip" onclick=inst(this)  />
+<input class="ll" type="image" src="aud.png" id="au.exe" value="Audacity" onclick=inst(this) />
+<input class="ll" type="image" src="as.png" id="as.exe" value="Audio Shell" onclick=inst(this) /><br>
+<input class="ll" type="image" src="icon.png" id="ddc.exe" value="DVD Decrypter" onclick=inst(this) /><br>
+<input class="ll" type="image" src="fi.png" id="fi.exe" value="FoxIt PDF Reader" onclick=inst(this) />
+<input class="ll" type="image" src="ib.png" id="ib.exe" value="Image Burner" onclick=inst(this) />
+<input class="ll" type="image" src="inn.png" id="innosetup-6.2.0.exe" value="Innosetup 6.2.0" onclick=inst(this) /><br>
+<input class="ll" type="image" src="npp.png" id="npp.exe" value="Notepad++" onclick=inst(this) />
+<input class="ll" type="image" src="pdfj.png" id="pdfj.exe" value="PDF Joiner" onclick=inst(this) />
+<input class="ll" type="image" src="pt.png" id="pt.exe" value="Powertoys 0.43.0.0" onclick=inst(this) /><br>
+<input class="ll" type="image" src="t2p.png" id="txt2pdf.exe" value="TXT 2 PDF" onclick=inst(this) />
+<input class="ll" type="image" src="calc.png" id="calc.exe" value="Win '98 Calculator" onclick=inst(this) />
+<input class="ll" type="image" src="xn.png" id="xn.exe" value="XN View" onclick=inst(this) />
+
+</div>
+
+
+
+<script language=VBScript>
+set ws = createobject("wscript.shell") 
+set fs = createobject("scripting.filesystemobject") 
+set sa = createobject("shell.application") 
+Sub Document_OnKeyUp()
+        intKeyCode = Window.Event.Keycode
+
+        If intKeyCode =27 Then 
+		window.close
+		killvid
+		end if
+    End Sub
+
+
+sub window_onload
+set sa = createobject("shell.application") 
+sa.minimizeall
+window.resizeto screen.width / 1.25, screen.height /1.15
+window.moveto screen.width / 3 - 900, screen.height /3 - 600
+
+end sub
+
+function document_onmousemove
+set dd = window.event.srcElement
+set ii = document.getelementbyid("appname")
+if dd.classname="ll" then
+ii.innertext = dd.value
+else
+ii.innertext =""
+end if
+end function
+
+
+
+sub copythis(xx)
+set dd = document.getelementbyid(xx)
+window.clipboarddata.setdata"text", xx.id
+codecopy.value=xx.id & " is the code on the clipboard for" & xx.value
+
+end sub
+
+sub pc1_onclick
+set dd = document.getelementbyid("pc")
+if dd.style.display ="block" then
+dd.style.display ="none"
+else
+dd.style.display ="block"
+end if
+end sub
+
+
+
+sub bignews()
+set s = document.getelementsbytagname("INPUT")
+'Insert About File Information Here
+msgbox"About  Mega Disc" & vbcrlf & "" & vbcrlf & _ 
+"__________________________" &vbcrlf &_
+"Enjoy!", vbinformation," Mega Disc"
+
+
+end sub
+
+
+			
+	
+function inst(xx)
+
+set ds=document.getelementbyid(xx.id)
+if ds.classname="ll" then
+	mm=self.location.pathname
+	c = split(mm,"\")
+	d = replace(mm, c(ubound(c)),"")
+	set ws = createobject("wscript.shell")
+	set fs = createobject("scripting.filesystemobject") 
+	set sa = createobject("shell.application")
+	set od = fs.getfolder(d)
+end if
+
+r ="cmd /c " & chr(34) & od & "\" & xx.id &  chr(34)
+ws.run r,0,true
+ws.popup"Installation of" & ds.value & " is complete",3,ds.value
+end function
+
+
+Sub killVid()
+		cc =""
+		dd =""
+		ee =""
+		r =""
+		set od = nothing
+		set oa = nothing
+		set uw = nothing
+		set sa = nothing
+on error resume next
+
+set ws = createobject("wscript.shell") 
+set sa = createobject("shell.application")
+xtr = 0
+sa.undominimizeall
+ws.run"taskkill /f /im cmd.exe",0,1
+ws.run"taskkill /f /im mshta.exe",0,1
+
+
+on error goto 0
+end sub
+i=-1
+
+sub changevid(xx)
+set dd = document.getelementbyid("me")
+vid ="https://finalfantasylife.com/media/" & xx & ".mp4"
+dd.filename = vid
+
+end sub
+
+sub muteToggle()
+set dd = document.getelementbyid("me")
+
+if dd.mute="True" then
+unmuteIt()
+
+elseif dd.mute="False" then
+muteIt()
+
+end if
+end sub
+
+sub muteIt()
+set dd = document.getelementbyid("me")
+set ii = document.getelementbyid("myMuteButton")
+ii.src="mute.png"
+dd.mute=true 
+end sub
+
+sub unmuteIt()
+set dd = document.getelementbyid("me")
+set ii = document.getelementbyid("myMuteButton")
+ii.src="unmute.png"
+dd.mute=false
+end sub
+sub playIt()
+set ii = document.getelementbyid("playpause")
+set dd = document.getelementbyid("me")
+if dd.playstate=2 then
+dd.pause
+ii.src="pause.png"
+else
+dd.play
+ii.src="play.png"
+end if
+end sub
+</script>
+
+
+
+<div id="container">
+
+<OBJECT 
+  ID="me"
+  CLASSID="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"
+  CODEBASE="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701" STANDBY="Loading Microsoft Windows Media Player components..." TYPE="application/x-oleobject" >
+  <PARAM NAME="fileName" VALUE="https://finalfantasylife.com/media/ff7r.mp4">
+
+  <PARAM NAME="animationatStart" VALUE="true">
+  <PARAM NAME="transparentatStart" VALUE="true">
+  <PARAM NAME="autoStart" VALUE="true">
+  <PARAM NAME="showControls" VALUE="false">
+  <PARAM NAME="mute" value="true">
+  <PARAM NAME="loop" value="True">
+
+</OBJECT>
+</div>
+<br>
+<div style="position:absolute;bottom:10%;text-align:center;display:block;">
+<select style="width:600px;" onchange="changeVid(this.value)">
+<optgroup label="Final Fantasy">
+ <option value="ff7r">Final Fantasy VII: Remake</option>
+ <option value="ffviii">Final Fantasy VIII</option>
+ <option value="ffix">Final Fantasy IX</option>
+ <option value="ffxblitz">Final Fantasy X</option>
+ <option value="ffx2">Final Fantasy X-2</option>
+ <option value="ffxii">Final Fantasy XII</option>
+ <option value="ffxiii">Final Fantasy XIII</option>
+ <option value="ffxiii2">Final Fantasy XIII-2</option>
+</optgroup>
+
+</select><br>
+<input class=mediacontrol id="myMuteButton" type=image src="mute.png" onclick="muteToggle()">
+<input class=mediacontrol id="playpause" type=image src="play.png" onclick="playIt()">
+<input class=mediacontrol id="about" type=image src="about.png" onclick="bignews()">
+<input class=mediacontrol id="myButton" type=image src="close.png" onclick="killvid()">
+
+
+</div>
